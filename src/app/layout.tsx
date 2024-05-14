@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-
+import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "@/trpc/react";
@@ -19,23 +19,25 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body
-        className={cn(
-          "bg-background min-h-screen font-sans antialiased",
-          GeistSans.variable,
-        )}
-      >
-        <TRPCReactProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </TRPCReactProvider>
-      </body>
+      <ClerkProvider>
+        <body
+          className={cn(
+            "bg-background min-h-screen font-sans antialiased",
+            GeistSans.variable,
+          )}
+        >
+          <TRPCReactProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </TRPCReactProvider>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
